@@ -1,0 +1,192 @@
+FED Kurs: Parcijalni test
+----------------------------------------------------------------------------------------------------------------------
+ZADATAK:
+	index.html: (Kod pisati u fajlu skripta.js: ./js/skripta.js)
+		--------------
+			Izvršiti validaciju forme upotrebom JavaScript tehnologije.	
+			Sva polja u formi moraju biti unesena kako bi se forma submitovala,
+			pocetno slovo imena i prezimena mora biti veliko.
+			
+			Na formi se nalazi jedan checkbox, i dva selecta. 
+			
+			Pored "Popust" selecta, postoji jos jedan select sa id-em sel2 i inicijalno je sakriven i onemogucen (disabled). 
+			Ukoliko korisnik odabere opciju "Sa popustom" u prvom selectu, potrebno je prikazati drugi select (promeniti njegov visibility) i aktivirati (da nije vise disabled). 
+			Ukoliko se odabere opcija "Bez popusta" sel2 je opet potrebno sakriti i deaktivirati (disabled).
+
+			Napomena: klasa za sel2, se takodje naziva sel2.
+
+			Sel2 ima tri opcije, 10%, 20% i 30%.
+			Prilikom menjanja opcija selecta, paragraf select_paragraf koji inicijalno ima vrednost:
+			"Odabrali ste : "
+			dopuniti sa podacima odabranog popusta.
+
+			Tako da ako je odabrano 10%, u pomenutom paragrafu trebao bi da bude ispis:
+			"Odabrali ste : 10% popusta".
+
+			Ukoliko se odabere opcija sa 30% popusta, potrebno je omoguciti "Premium" checkbox koji je inicijalno onemogucen (disabled). 
+			Pored toga, inicijalno kad se omoguci checkbox potrebno je obojiti pozadinu submit dugmeta, sa vrednoscu "necekiran" iz objekta boje.
+			Ukoliko korisnik klikne na checkbox, potrebno je pozadinu submit dugmeta, obojiti sa vrednosti "cekiran" iz objekta boje.
+
+			Ukoliko se odabere vrednost popusta 10% ili 20%, potrebno je onemoguciti (disable) "Premium" checkbox i vratiti njegovu pozadinsku boju na belu.
+			Takodje, ukoliko se opet odabere opcija 30% potrebno je obojiti pozadinsku boju submit dugmeta na osnovu stanja checkboxa.
+			Odnosno ukoliko je ostalo "cekirano" obojiti u Crimson, ukoliko je ostalo "necekirano" obojiti u "Teal"
+
+			Objekat koji sadrzi vrednosti boja definisan je na sledeci nacin i njega treba da iskoristite:
+
+			var boje = {
+				cekiran: "Crimson",
+				necekiran: "Teal"
+			};
+
+			Forma se ne moze submitovati ukoliko polja nisu popunjena.
+
+			Napredno
+			---------------------
+			Ukoliko korisnik dok je odabran popust od 30%, prebaci prvi selekt, na opciju "Bez popusta", 
+			potrebno je onemoguciti checkbox i vratiti pozadinsku boju dugmeta na belu. Takodje, ukoliko
+			korisnik odabere opciju "Sa popustom" vratiti pozadisnku boju dugmeta koja je bila pre iskljucivanja.
+
+	
+ts.html (Kod pisati u fajlove app.ts AutoSkola.ts Instruktor.ts)
+		--------------
+			Osnovno
+			---------------------
+
+			NAPOMENA: Pre pocetka rada, u ts.html izbrisati sledeci script tag: <script src="js/kriptovano.js"></script>
+
+			Prilikom ucitavanja stranice ts.html ucitavaju se podaci o autoskoli.
+
+			Stranica ts.html sastoji se od select polja koje sluzi za izbor aktivnog instruktora (select polje sadrzi instruktore auto skole). Ispod select polja za izbor aktivnog instruktora, se nalaze polja za unos podataka o ispitu. 
+			
+			U polja je predvidjeno da se upise: ime kandidata, prezime kandidata, jmbg kandidata, datum polaganja, bodovi iz teorijskog testa, i bodovi iz prakticnog testa.
+
+			Klikom na dugme "Dodaj ispit", prave se dva objekta klase ispit:
+				-jedan za teorijski test i
+				-jedan za praktican test
+			Ti objekti se dodaju u niz ispita auto skole, pri cemu instruktor ispita je aktivan instruktor.
+
+			Svi ispiti su ispisani pomocu tabele, u okviru tbody taga.
+
+			Pored dugmeta "Dodaj ispit" nalazi se:
+				-select polje za izbor nacina polaganja (Teorija ili Prakticno), 
+				-dva dugmeta:
+					-"Najslabiji Kandidat Po Instruktoru Za Nacin Polaganja" 
+					-"Najbolji instruktori po nacinu polaganja"
+
+			Klikom na dugme  "Najslabiji Kandidat Po Instruktoru Za Nacin Polaganja" u divu, sa id-om "podaci", se ispisuje sledeci tekst (za aktivnog instruktora):
+			
+			<h3>Najslabiji kandidat za ${nacinPolaganja} kod instruktora ${ime i prezime aktivnog instruktora} je ${ime i prezime najslabijeg kandidata}.</h3>
+
+			Najslabiji kandidat za nacin polaganja, kod nekog instruktora, je kandidat koji je osvojio najmanje bodova za izabrani nacin polaganja kod tog instruktora.
+
+			Klikom na dugme  "Najbolji instruktori po nacinu polaganja" u divu, sa id-om "podaci", se ispisuje:
+			
+			<h3>Instruktor sa najboljom prolaznosti za teoriju je ${ime i prezime instruktora sa najvecim prosecnim brojem bodova teorije} sa prosekom od ${prosecan broj bodova kandidata kod instruktora koji ima najvecu prosecnu vrednost za teoriju} boda.</h3>
+			<br>
+			<h3>Instruktor sa najboljom prolaznosti za prakticno je  ${ime i prezime instruktora sa najvecim prosecnim brojem bodova prakticnog dela ispita} sa prosekom od ${prosecan broj bodova kandidata kod instruktora koji ima najvecu prosecnu vrednost za prakticni deo} boda.</h3>
+			
+			Data je klasa Ispit, Implementirati klasu Instruktor i AutoSkola.
+
+			Implementirati klasu Instruktor (fajl Instruktor.ts), koja se sastoji od:
+				-atributa:
+					private _ime: string;
+    				private _prezime: string;
+    				private _jmbg: number;
+				-konstruktora
+				-geteri za sva polja
+				-seteri za sva polja
+
+    		Implementirati klasu AutoSkola (fajl AutoSkola.ts), koja se sastoji od:
+				-atributa:
+					private _naziv: string;
+    				private _instruktori: Instruktor[];
+    				private _ispiti: Ispit[];
+				-konstruktora (prima parametar naziv, a nizove inicijalizuje na prazne nizove)
+				-geteri za sva polja
+				-seteri za sva polja
+			    -metoda:
+			    	-dodajIspit //prima objekat tipa Ispit i dodaje ga u niz _ispiti
+			    	-refreshIspis 
+			    	-izracunajProlaznostZaInstruktora 
+					-najslabijiKandidatPoInstruktoru
+
+
+			-------
+			Metoda refreshIspis, u tbody tabele, upisuje podatke o ispitima auto skole po formatu:			
+				-Redni broj (indeks ispita uvecan za 1), 
+				-ime i prezime kandidata, 
+				-ime i prezime instruktora, 
+				-nacin polaganja (Teorija ili prakticno), 
+				-datum ispita i 
+				-bodovi.
+
+			Ukoliko kandidat ima vise od 55 bodova, smatra se da je polozio ispit, a odgovarajucem td-u treba dodati klasu green, a ako ima 55 i manje treba se dodati klasa red.
+			
+			Prilikom generisanja tr-ova sa podacima: podatke (tekst) najbolje cuvati u promenljivoj i na kraju upisati u tbody preko innerHTML.
+
+			Primer izgleda tabele:
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Kandidat</th>
+						<th>Instruktor</th>
+						<th>Način polaganja</th>
+						<th>Datum</th>
+						<th>Bodovi</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+					<tr>
+						<td>1</td>
+						<td>Jovan Jovanovic</td>
+						<td>Pera Peric</td>
+						<td>Teorija</td>
+						<td>2018-02-11</td>
+						<td class="red">35</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Jovan Jovanovic</td>
+						<td>Pera Peric</td>
+						<td>Prakticno</td>
+						<td>2018-03-05</td>
+						<td class="green">78</td>
+					</tr>
+					.
+					.
+					.
+				</table>
+			
+
+			-------
+			Metoda najslabijiKandidatPoInstruktoru treba da primi dva parametra:
+			
+			nacinPolaganja: string
+			instruktor: Instruktor
+			
+			Metoda nema povratnu vrednost: tip void.
+			
+			Metoda pronalazi kandidata (ispit) koji je imao najmanji broj bodova za odgovarajuci nacin polaganja kod prosledjenog instruktora. 
+			Za instruktore, atribut jmbg je jedinstven, odnosno ne bi trebalo da postoje dva instruktora sa istim jmbg-om.
+
+			Za resavanje, pronaci sve ispite za prosledjenog instruktora, na kojima se polagao prosledjeni nacin polaganja i nad tim nizom pronaci kandita koji ima najmanje bodova.
+			Rezultat upisati u div #podaci.
+
+			-------
+			Metoda najboljiInstruktoriPoNacinuPolaganja ne prima parametre i nema povratnu vrednost.
+			Za oba nacina polaganja: pronaci koji instruktor ima najvecu prosecnu vrednost bodova (po nacinu polaganja).
+						
+			+++++++
+			Implementirati funkciju wireEvents (fajl app.ts) koja povezuje klik dogadjaje sa dugmicima:
+				-za dodajIspit: kupe se informacije o ispitu iz odgvarajucih input polja, prave se dva nova objekta tipa Ispit (jedan za Teorija nacin polaganja, jedan za Prakticno nacin polaganja), 
+				                novi objekti kao instruktora koriste aktivnog instruktora, i objekti se dodaju u objekat autoSkola. Nakon dodavanja pozvati metodu refreshIspis autoSkole.
+				-za najslabijiKandidatPoInstruktoruZaNacinPolaganja: preuzima se vrednost selecta nacinPolaganjaSelekt, i poziva se metoda najboljiInstruktoriPoNacinuPolaganja objekta autoSkola prosledjivanjem preuzete vrednosti selekta i aktivnog instruktora
+				-za najboljiInstruktoriPoNacinuPolaganja: poziva se metoda najboljiInstruktoriPoNacinuPolaganja auto skole
+
+   
+
+			Napredno
+			------------------------------------
+			Koristiti map reduce i filter na odgovarajucim mestima.
